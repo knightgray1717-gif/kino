@@ -1,0 +1,102 @@
+<!-- Pair: js/pages/membership.js — prices and copy live here. -->
+
+<div class="content-wrapper membership-page">
+    <div class="membership-shell">
+        <section class="membership-hero">
+            <p class="eyebrow">Membership</p>
+            <h1>Choose your seat in the house</h1>
+            <p>You are on <strong>Kino <span data-current-plan>Classic</span></strong>. Pick a plan — it saves to this seat instantly. Cancel anytime.</p>
+            <div class="billing-toggle" role="group" aria-label="Billing period">
+                <button type="button" class="billing-btn active" data-billing="month">Monthly</button>
+                <button type="button" class="billing-btn" data-billing="year">Yearly <span class="save-pill">Save 17%</span></button>
+            </div>
+        </section>
+
+        <section class="tier-grid">
+            <article class="tier-card classic" data-tier="Classic">
+                <div class="tier-header"><h3>Kino Classic</h3><span class="label-chip">Classic</span></div>
+                <p class="tier-price"><span class="price-amount">Free</span></p>
+                <p class="tier-tagline">The house catalog, no ticket required.</p>
+                <ul class="benefits">
+                    <li>Full free catalog</li>
+                    <li>Clips in 720p</li>
+                    <li>Save up to 50 titles</li>
+                    <li>Standard Live queue</li>
+                    <li>Occasional ads</li>
+                </ul>
+                <button type="button" class="tier-cta" data-plan="Classic">Choose Classic</button>
+            </article>
+
+            <article class="tier-card plus featured" data-tier="Plus">
+                <p class="tier-ribbon">Most loved</p>
+                <div class="tier-header"><h3>Kino Plus</h3><span class="label-chip">Plus</span></div>
+                <p class="tier-price">
+                    <span class="price-currency">$</span>
+                    <span class="price-amount" data-price-month="7.99" data-price-year="79.99">7.99</span>
+                    <span class="price-period" data-price-period>/ month</span>
+                </p>
+                <p class="tier-tagline">Fewer ads, extra premieres, downloads.</p>
+                <ul class="benefits">
+                    <li>Fewer ads</li>
+                    <li>Select premium titles</li>
+                    <li>Downloads on 2 devices</li>
+                    <li>1080p playback</li>
+                    <li>Creator badges</li>
+                </ul>
+                <button type="button" class="tier-cta" data-plan="Plus">Choose Plus · $7.99</button>
+            </article>
+
+            <article class="tier-card premium" data-tier="Premium">
+                <div class="tier-header"><h3>Kino Premium</h3><span class="label-chip">Premium</span></div>
+                <p class="tier-price">
+                    <span class="price-currency">$</span>
+                    <span class="price-amount" data-price-month="13.99" data-price-year="139.99">13.99</span>
+                    <span class="price-period" data-price-period>/ month</span>
+                </p>
+                <p class="tier-tagline">Every creator, every drop, no ads.</p>
+                <ul class="benefits">
+                    <li>Ad-free everywhere</li>
+                    <li>All titles &amp; early drops</li>
+                    <li>4K + HDR where available</li>
+                    <li>VIP Live seating</li>
+                    <li>Downloads on 6 devices</li>
+                    <li>Priority support</li>
+                </ul>
+                <button type="button" class="tier-cta" data-plan="Premium">Choose Premium · $13.99</button>
+            </article>
+        </section>
+
+        <section class="plan-compare">
+            <h2>Compare seats</h2>
+            <div class="compare-table" role="table">
+                <div class="compare-row head" role="row">
+                    <span>Feature</span><span>Classic</span><span>Plus</span><span>Premium</span>
+                </div>
+                <div class="compare-row" role="row"><span>Price / month</span><span>Free</span><span>$7.99</span><span>$13.99</span></div>
+                <div class="compare-row" role="row"><span>Ads</span><span>Some</span><span>Fewer</span><span>None</span></div>
+                <div class="compare-row" role="row"><span>Catalog</span><span>Free house</span><span>Plus extras</span><span>Everything</span></div>
+                <div class="compare-row" role="row"><span>Max quality</span><span>720p</span><span>1080p</span><span>4K / HDR</span></div>
+                <div class="compare-row" role="row"><span>Downloads</span><span>—</span><span>2 devices</span><span>6 devices</span></div>
+                <div class="compare-row" role="row"><span>Live</span><span>Standard</span><span>Priority</span><span>VIP</span></div>
+            </div>
+        </section>
+
+        <section class="plan-faq">
+            <h2>Before you pick</h2>
+            <div class="faq-grid">
+                <article>
+                    <h3>Can I change later?</h3>
+                    <p>Yes. Switch plans any time from this page. It updates your Kino seat immediately.</p>
+                </article>
+                <article>
+                    <h3>Is Classic actually free?</h3>
+                    <p>$0. No card. The house catalog, clips, and a library of 50 saves stay open.</p>
+                </article>
+                <article>
+                    <h3>What does yearly save?</h3>
+                    <p>Plus is $79.99/year instead of $95.88. Premium is $139.99/year instead of $167.88.</p>
+                </article>
+            </div>
+        </section>
+    </div>
+</div>

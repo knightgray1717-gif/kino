@@ -1,0 +1,47 @@
+<!-- Settings -->
+
+<div class="content-wrapper">
+    <div class="page-masthead">
+        <p class="eyebrow">Settings</p>
+        <h1>Your seat</h1>
+        <p>Look, playback, and account — pick the house that feels right.</p>
+    </div>
+    <div class="settings-stack">
+        <div class="gen-panel">
+            <h3>Look</h3>
+            <p class="muted">Dark is blue. Light is soft gray with gold on the real buttons.</p>
+            <div class="theme-grid">
+                <button type="button" class="theme-card" data-theme-pick="gold">
+                    <span class="theme-swatch gold"></span>
+                    <strong>Blue house</strong>
+                    <small>Dark base with blue accents</small>
+                </button>
+                <button type="button" class="theme-card" data-theme-pick="day">
+                    <span class="theme-swatch day"></span>
+                    <strong>Daylight</strong>
+                    <small>Soft gray with muted gold</small>
+                </button>
+            </div>
+        </div>
+        <div class="gen-panel">
+            <h3>Playback</h3>
+            <div class="form-field">
+                <label>Autoplay next title</label>
+                <select id="settings-autoplay">
+                    <option value="1">On</option>
+                    <option value="0">Off</option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label>Display name</label>
+                <input id="settings-name" type="text" value="Guest">
+            </div>
+            <p class="muted">Plan: <span data-field="plan">Classic</span> · change it on Membership.</p>
+            <div class="action-row">
+                <button class="header-btn signin-btn" id="save-settings" type="button">Save settings</button>
+                <button class="header-btn ghost" id="logout-btn" type="button">Log out</button>
+                <button class="header-btn ghost" id="open-login-settings" type="button">Log in</button>
+            </div>
+        </div>
+    </div>
+</div>

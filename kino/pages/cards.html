@@ -1,0 +1,142 @@
+<!-- Shared repeating cards. Edit a template here to change it on every page that uses it. -->
+
+<template id="drop-card">
+    <article class="drop-card" data-play="{{id}}">
+        <div class="drop-thumb">
+            <img src="{{thumbnail}}" alt="{{title}}">
+            <span class="drop-format">{{format}}</span>
+            <span class="drop-runtime">{{runtime}}</span>
+            <div class="drop-play"><i class="fas fa-play"></i></div>
+        </div>
+        <div class="drop-body">
+            <div class="user-avatar">{{initial}}</div>
+            <div>
+                <h3>{{title}}</h3>
+                <p>{{uploader}} · {{views}} views</p>
+            </div>
+        </div>
+    </article>
+</template>
+
+<template id="rail">
+    <div class="rail">
+        <div class="rail-head">
+            <h3>{{title}}</h3>
+            <a class="text-link" href="{{href}}">See all</a>
+        </div>
+        <div class="rail-track">{{cards}}</div>
+    </div>
+</template>
+
+<template id="chip">
+    <button type="button" class="tab {{active}}" {{attr}}>{{label}}</button>
+</template>
+
+<template id="clip-card">
+    <div class="clip-card" data-play="{{id}}">
+        <div class="clip-video-frame">
+            <video src="{{src}}" poster="{{thumbnail}}" loop muted playsinline></video>
+            <div class="clip-gradient"></div>
+            <div class="clip-overlay">
+                <div class="clip-meta">
+                    <h3>{{title}}</h3>
+                    <p>{{uploader}}</p>
+                    <p class="muted">{{runtime}} · {{category}}</p>
+                </div>
+                <div class="clip-actions">
+                    <a class="circle-btn" href="#player/{{id}}" title="Play"><i class="fas fa-play"></i></a>
+                    <button class="circle-btn" data-save="{{id}}" type="button" title="Save"><i class="fas fa-bookmark"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="live-item">
+    <div class="kino-live-item" data-play="{{id}}">
+        <div class="kino-live-thumb"><img src="{{thumbnail}}" alt="{{title}}"></div>
+        <div class="kino-live-info">
+            <p class="eyebrow">{{slot}}</p>
+            <h4>{{title}}</h4>
+            <p>{{company}} · {{format}}</p>
+        </div>
+        <button class="header-btn signin-btn" type="button">{{action}}</button>
+    </div>
+</template>
+
+<template id="history-row">
+    <div class="history-row" data-play="{{id}}">
+        <img src="{{thumbnail}}" alt="{{title}}">
+        <div>
+            <h4>{{title}}</h4>
+            <p class="muted">{{uploader}} · watched {{watched}}</p>
+        </div>
+    </div>
+</template>
+
+<template id="notice-row">
+    <button type="button" class="notice-row {{unread}}" data-note="{{id}}">
+        <strong>{{title}}</strong>
+        <p class="muted">{{body}}</p>
+    </button>
+</template>
+
+<template id="roster-card">
+    <article class="roster-card">
+        <a class="roster-cover" href="{{channel}}" aria-label="{{name}}">
+            <img src="{{cover}}" alt="">
+        </a>
+        <div class="roster-body">
+            <a class="roster-identity" href="{{channel}}">
+                <span class="user-avatar roster-avatar">{{initial}}</span>
+                <span>
+                    <h3>{{name}}</h3>
+                    <p>{{stats}}</p>
+                </span>
+            </a>
+            <p class="roster-latest">{{latest}}</p>
+            <button class="header-btn signin-btn {{followedClass}}" data-follow="{{name}}" type="button">{{followLabel}}</button>
+        </div>
+    </article>
+</template>
+
+<template id="playlist-card">
+    <div class="playlist-card" data-play="{{id}}">
+        <h4>{{title}}</h4>
+        <div class="playlist-meta">
+            <span class="playlist-pill">{{count}} videos</span>
+            <span class="playlist-pill">{{updated}}</span>
+        </div>
+    </div>
+</template>
+
+<template id="schedule-item">
+    <div class="schedule-item">
+        <div>
+            <div class="meta schedule-season">Season {{season}}</div>
+            <div class="meta">{{company}} · {{director}}</div>
+        </div>
+        <div>{{title}}</div>
+    </div>
+</template>
+
+<template id="comment-row">
+    <div class="comment-row">
+        <div class="user-avatar">{{initial}}</div>
+        <div>
+            <p class="comment-head">{{user}} <span class="muted">{{time}}</span></p>
+            <p class="comment-text">{{text}}</p>
+        </div>
+    </div>
+</template>
+
+<template id="up-next-item">
+    <div class="up-next-item" data-play="{{id}}">
+        <img src="{{thumbnail}}" alt="{{title}}">
+        <div class="info">
+            <h4>{{title}}</h4>
+            <p>{{uploader}}</p>
+            <p>{{views}} views · {{runtime}}</p>
+        </div>
+    </div>
+</template>

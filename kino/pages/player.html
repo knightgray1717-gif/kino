@@ -1,0 +1,96 @@
+<!-- Player -->
+
+<div class="content-wrapper player-page" data-role="player">
+    <div class="player-top">
+        <button class="ghost-btn" id="player-back-btn" type="button"><i class="fas fa-arrow-left"></i> Back</button>
+    </div>
+    <div class="player-wrapper">
+        <div class="player-main">
+            <div class="player-stage">
+                <div class="video-player" data-role="stage">
+                    <video id="player-video" playsinline preload="metadata" src="" poster=""></video>
+                    <div class="player-hud-dock">
+                        <input type="range" id="player-scrub" min="0" max="1000" value="0" step="1" aria-label="Seek">
+                        <span class="player-time" data-field="time">0:00 / 0:00</span>
+                    </div>
+                </div>
+                <div class="player-hud">
+                    <div class="player-hud-center">
+                        <button type="button" class="player-ctrl" data-jump="-1" aria-label="Previous title" disabled>
+                            <i class="fas fa-backward-step"></i>
+                        </button>
+                        <button type="button" class="player-ctrl" data-seek="-5" aria-label="Back 5 seconds">
+                            <span class="player-seek-mark"><i class="fas fa-rotate-left"></i><em>5</em></span>
+                        </button>
+                        <button type="button" class="player-ctrl player-ctrl-play" data-toggle-play aria-label="Pause">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        <button type="button" class="player-ctrl" data-seek="5" aria-label="Forward 5 seconds">
+                            <span class="player-seek-mark"><i class="fas fa-rotate-right"></i><em>5</em></span>
+                        </button>
+                        <button type="button" class="player-ctrl" data-jump="1" aria-label="Next title" disabled>
+                            <i class="fas fa-forward-step"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="video-info">
+                <h1 data-field="title">Title</h1>
+                <div class="player-actions">
+                    <div class="player-uploader-info">
+                        <a class="user-avatar lg" data-field="channel" href="#creators">K</a>
+                        <div>
+                            <p id="player-uploader" data-field="uploader">Uploader</p>
+                            <p class="sub-line">House curator</p>
+                        </div>
+                        <button class="btn-primary" data-field="follow" data-follow="" type="button">Follow</button>
+                    </div>
+                    <div class="player-action-group">
+                        <div class="pill-group">
+                            <button class="header-btn ghost" data-field="like" data-like="" type="button"><i class="fas fa-heart"></i> <span data-field="likes">0</span></button>
+                        </div>
+                        <button class="header-btn ghost" data-share="1" type="button"><i class="fas fa-share-nodes"></i> Share</button>
+                        <button class="header-btn ghost" data-field="save" data-save="" type="button"><i class="fas fa-bookmark"></i> <span data-field="save-label">Save</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="player-description">
+                <p class="player-stats" data-field="stats"></p>
+                <p data-field="desc"></p>
+                <div class="kino-credit-grid">
+                    <div class="kino-credit-row"><span>Company</span><strong data-field="company"></strong></div>
+                    <div class="kino-credit-row"><span>Director</span><strong data-field="director"></strong></div>
+                    <div class="kino-credit-row"><span>Producer</span><strong data-field="producer"></strong></div>
+                    <div class="kino-credit-row"><span>Featured</span><strong data-field="featured"></strong></div>
+                </div>
+            </div>
+            <div class="player-comments">
+                <h3><span data-field="comment-count">0</span> Notes from the house</h3>
+                <div class="comment-composer">
+                    <div class="user-avatar" data-field="me-initial">U</div>
+                    <div class="comment-composer-body">
+                        <input type="text" id="comment-input" placeholder="Leave a note...">
+                        <div class="comment-composer-actions">
+                            <button id="submit-comment" class="btn-primary" type="button">Post</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="comments-stream" data-slot="comments"></div>
+            </div>
+        </div>
+        <aside class="player-sidebar">
+            <div class="up-next">
+                <h3>Up next</h3>
+                <div data-slot="upnext"></div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<div class="content-wrapper" data-role="missing" hidden>
+    <div class="page-masthead">
+        <p class="eyebrow">Player</p>
+        <h1>Title missing</h1>
+        <p>That id is not in the catalog.</p>
+    </div>
+</div>

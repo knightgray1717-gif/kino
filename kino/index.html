@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kino — Watch. Drop. Repeat.</title>
+    <meta name="description" content="Kino is a cinematic house for premieres, clips, and creator drops.">
+    <meta name="theme-color" content="#070b12">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070b12'/%3E%3Cpath d='M18 14h6v36h-6zM28 14h8l12 16-12 20h-8l12-20z' fill='%233B82F6'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="kino-page" data-theme="gold">
+    <div class="app-container">
+        <aside class="sidebar" id="app-sidebar">
+            <a class="logo" href="#home" aria-label="Kino home">
+                <span class="logo-mark" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" fill="none">
+                        <rect x="4" y="6" width="8" height="36" rx="2" fill="currentColor"/>
+                        <path d="M18 6h10l14 18L28 42H18l14-18L18 6z" fill="currentColor"/>
+                    </svg>
+                </span>
+                <span class="logo-wordmark">Kino</span>
+            </a>
+
+            <nav class="nav-links" aria-label="Main navigation">
+                <p class="nav-label">Watch</p>
+                <ul>
+                    <li class="nav-item active" data-section="home"><i class="fas fa-house"></i><span>Home</span></li>
+                    <li class="nav-item" data-section="discovery"><i class="fas fa-compass"></i><span>Discover</span></li>
+                    <li class="nav-item" data-section="clips"><i class="fas fa-bolt"></i><span>Clips</span></li>
+                    <li class="nav-item" data-section="live"><i class="fas fa-tower-broadcast"></i><span>Live</span></li>
+                    <li class="nav-item" data-section="creators"><i class="fas fa-users"></i><span>Creators</span></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer house-menu" id="house-menu">
+                <div class="house-panel" id="house-panel">
+                    <div class="house-panel-inner">
+                        <div class="house-panel-head">
+                            <p class="nav-label">Your house</p>
+                            <a class="icon-btn house-gear" href="#settings" aria-label="Settings"><i class="fas fa-gear"></i></a>
+                        </div>
+                        <ul>
+                            <li class="nav-item" data-section="profile"><i class="fas fa-user"></i><span>Profile</span></li>
+                            <li class="nav-item" data-section="library"><i class="fas fa-bookmark"></i><span>Library</span></li>
+                            <li class="nav-item" data-section="history"><i class="fas fa-history"></i><span>History</span></li>
+                            <li class="nav-item" data-section="upload"><i class="fas fa-cloud-arrow-up"></i><span>Upload</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <button type="button" class="user-chip" id="app-user-chip" aria-expanded="false" aria-controls="house-panel">
+                    <span class="user-avatar" id="app-user-avatar">K</span>
+                    <span class="user-meta">
+                        <strong id="sidebar-username">Guest</strong>
+                        <small id="sidebar-plan">Kino Classic</small>
+                    </span>
+                    <i class="fas fa-chevron-up house-caret" aria-hidden="true"></i>
+                </button>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <header class="app-topbar">
+                <button type="button" class="icon-btn mobile-only" id="nav-toggle" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+                <div class="topbar-search-wrap" id="topbar-search-wrap">
+                    <div class="search-launch topbar-search">
+                        <i class="fas fa-magnifying-glass"></i>
+                        <input type="search" id="topbar-search" placeholder="Search titles, creators, moods..." autocomplete="off" aria-label="Search Kino">
+                        <button type="button" class="search-slash" id="open-search" aria-label="Open full search"><kbd>/</kbd></button>
+                    </div>
+                    <div class="search-drop hidden" id="search-drop" role="listbox"></div>
+                </div>
+                <div class="top-actions">
+                    <a class="icon-btn notify-btn" href="#notifications" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span id="notify-count" class="notify-count hidden"></span>
+                    </a>
+                    <a class="header-btn membership-btn" id="membership-btn" href="#membership"><i class="fas fa-crown"></i> Membership</a>
+                    <button type="button" class="header-btn signin-btn" id="top-login-btn">
+                        <i class="fas fa-user"></i> <span id="top-login-label">Log In</span>
+                    </button>
+                </div>
+            </header>
+
+            <main id="page" class="page-mount" aria-live="polite"></main>
+        </div>
+    </div>
+
+    <nav class="mobile-nav" aria-label="Mobile">
+        <button type="button" data-section="home"><i class="fas fa-house"></i><span>Home</span></button>
+        <button type="button" data-section="discovery"><i class="fas fa-compass"></i><span>Discover</span></button>
+        <button type="button" data-section="clips"><i class="fas fa-bolt"></i><span>Clips</span></button>
+        <button type="button" data-section="library"><i class="fas fa-bookmark"></i><span>Library</span></button>
+        <button type="button" data-section="upload"><i class="fas fa-plus"></i><span>Upload</span></button>
+    </nav>
+
+    <div id="search-overlay" class="search-overlay hidden" role="dialog" aria-modal="true" aria-label="Search">
+        <div class="search-overlay-panel">
+            <div class="search-overlay-bar">
+                <i class="fas fa-magnifying-glass"></i>
+                <input type="search" id="global-search" placeholder="Search titles, creators, moods..." autocomplete="off">
+                <button type="button" class="icon-btn" id="search-close" aria-label="Close search"><i class="fas fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <div id="toast-stack" class="toast-stack" aria-live="polite"></div>
+
+    <div id="login-modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Sign in">
+        <div class="modal-content">
+            <h2 id="login-modal-title">Sign in to Kino</h2>
+            <p class="auth-lead" id="login-modal-lead">Demo: demo@kino.local / demo</p>
+            <form id="login-form">
+                <input type="text" id="login-name" placeholder="Display name" class="hidden" autocomplete="nickname">
+                <input type="email" id="login-email" placeholder="Email" required autocomplete="email">
+                <input type="password" id="login-password" placeholder="Password" required autocomplete="current-password">
+                <button type="submit" id="login-submit">Sign In</button>
+                <button type="button" class="exit-btn" id="login-close">Cancel</button>
+            </form>
+            <p class="auth-subtext"><span id="auth-switch-copy">New here?</span> <button class="auth-link" id="goto-signup" type="button">Create an account</button></p>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+    <!--
+      Layout:  pages/<name>.html
+      Screen:  js/pages/<name>.js  (fills the HTML, binds clicks)
+      App:     js/app.js + js/api.js  (router; Python if live, else local store)
+      Backend: server.py locally; Netlify uses the local store fallback
+    -->
+</body>
+</html>

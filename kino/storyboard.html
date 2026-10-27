@@ -1,0 +1,284 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Streamly Storyboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="storyboard-page">
+  <header class="storyboard-header">
+    <div class="storyboard-header-bar">
+      <a class="storyboard-brand" href="Kino.html">
+        <img src="assets/streamly-logo.svg" alt="Streamly logo">
+        <span>Streamly Storyboard</span>
+      </a>
+      <nav class="storyboard-nav">
+        <a href="Kino.html">Home</a>
+        <a href="upload.html">Upload</a>
+        <a href="library.html">Library</a>
+        <a href="series.html">Series</a>
+        <a href="membership.html">Membership</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="storyboard-shell">
+    <aside class="storyboard-sidebar">
+      <a class="storyboard-back-link" href="upload.html">&larr; Back to Upload</a>
+      <div>
+        <label for="prompt-input">Prompt / Script</label>
+        <textarea id="prompt-input" placeholder="Describe the scene, mood, or action for this clip..."></textarea>
+      </div>
+      <button class="storyboard-btn" type="button" onclick="generateClip()">Generate Clip</button>
+      <button class="storyboard-btn" type="button" onclick="saveStoryboard()">Save to Library</button>
+    </aside>
+
+    <main class="storyboard-content">
+      <div class="storyboard-preview-area">
+        <div class="storyboard-preview-player">
+          <video id="preview-video" controls class="hidden">
+            <source id="preview-source" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div id="preview-empty" class="storyboard-empty-state">
+            <div class="storyboard-empty-icon">::</div>
+            <p>Select a clip from the timeline to preview it.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="storyboard-timeline">
+        <div id="timeline-clips"></div>
+        <div class="timeline-add" onclick="addClipPrompt()">+</div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="storyboard-footer">
+    <div class="storyboard-footer-actions">
+      <button class="storyboard-btn" type="button" onclick="downloadStoryboard()">Download Storyboard</button>
+      <a class="storyboard-btn" href="upload.html">Open Uploader</a>
+    </div>
+  </footer>
+
+  <script>
+    const DEMO_VIDEO_URL = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
+    const STORYBOARD_THUMBNAIL = 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=720&q=70';
+
+    let storyboard = {
+      clips: []
+    };
+
+    function safeParseLocal(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (!raw) return fallback;
+        const parsed = JSON.parse(raw);
+        return parsed ?? fallback;
+      } catch (error) {
+        console.warn(`Resetting invalid localStorage key: ${key}`, error);
+        localStorage.removeItem(key);
+        return fallback;
+      }
+    }
+
+    function persistStoryboard() {
+      localStorage.setItem('currentStoryboard', JSON.stringify(storyboard));
+    }
+
+    function autoSizePrompt() {
+      const promptInput = document.getElementById('prompt-input');
+      if (!promptInput) return;
+      promptInput.style.height = 'auto';
+      promptInput.style.height = `${promptInput.scrollHeight}px`;
+    }
+
+    function loadStoryboard() {
+      const saved = safeParseLocal('currentStoryboard', null);
+      if (saved && Array.isArray(saved.clips)) {
+        storyboard = saved;
+      }
+
+      const incoming = safeParseLocal('incomingStoryboard', null);
+      if (incoming && Array.isArray(incoming.clips) && incoming.clips.length) {
+        storyboard.clips = [...(storyboard.clips || []), ...incoming.clips];
+        localStorage.removeItem('incomingStoryboard');
+      }
+
+      renderTimeline();
+      if (storyboard.clips.length) {
+        selectClip(storyboard.clips[storyboard.clips.length - 1].id);
+      }
+    }
+
+    function saveStoryboardToLibrary(project, title) {
+      const videos = safeParseLocal('videos', []);
+      if (!Array.isArray(videos)) return false;
+
+      const clipCount = project.clips.length;
+      const savedVideo = {
+        id: Date.now(),
+        title,
+        src: project.clips[0]?.src || '',
+        desc: `${clipCount} storyboard clip${clipCount === 1 ? '' : 's'} assembled in Streamly Storyboard.`,
+        category: 'storyboard',
+        uploader: 'Streamly Storyboard',
+        company: 'Streamly Studios',
+        director: 'Storyboard Editor',
+        producer: 'Streamly Team',
+        videographer: 'Storyboard Capture',
+        featured: project.clips.map((clip) => clip.prompt).filter(Boolean).slice(0, 2).join(' / ') || 'Storyboard Clips',
+        likes: 0,
+        comments: [],
+        thumbnail: project.clips[0]?.poster || STORYBOARD_THUMBNAIL
+      };
+
+      videos.unshift(savedVideo);
+      localStorage.setItem('videos', JSON.stringify(videos));
+      persistStoryboard();
+      return true;
+    }
+
+    function saveStoryboard() {
+      if (storyboard.clips.length === 0) {
+        alert('No clips to save. Add some clips first.');
+        return;
+      }
+
+      const title = prompt('Enter a title for your storyboard project:', 'Untitled Storyboard');
+      if (!title) return;
+
+      const result = saveStoryboardToLibrary(storyboard, title);
+      if (result) {
+        alert(`"${title}" saved to your Streamly library.`);
+      } else {
+        alert('Failed to save storyboard to library.');
+      }
+    }
+
+    function generateClip() {
+      const promptInput = document.getElementById('prompt-input');
+      const prompt = promptInput?.value?.trim();
+
+      if (!prompt) {
+        alert('Please enter a prompt for the clip.');
+        return;
+      }
+
+      const clip = {
+        id: Date.now(),
+        prompt,
+        src: DEMO_VIDEO_URL,
+        poster: STORYBOARD_THUMBNAIL,
+        duration: 5
+      };
+
+      storyboard.clips.push(clip);
+      persistStoryboard();
+      renderTimeline();
+      promptInput.value = '';
+      autoSizePrompt();
+      selectClip(clip.id);
+    }
+
+    function addClipPrompt() {
+      const promptInput = document.getElementById('prompt-input');
+      if (!promptInput) return;
+      promptInput.focus();
+      promptInput.value = '';
+      autoSizePrompt();
+    }
+
+    function selectClip(clipId) {
+      const clip = storyboard.clips.find((entry) => entry.id === clipId);
+      if (!clip) return;
+
+      const previewVideo = document.getElementById('preview-video');
+      const previewSource = document.getElementById('preview-source');
+      const previewEmpty = document.getElementById('preview-empty');
+
+      previewSource.src = clip.src;
+      previewVideo.load();
+      previewVideo.classList.remove('hidden');
+      previewEmpty.classList.add('hidden');
+
+      document.querySelectorAll('.timeline-clip').forEach((element) => {
+        element.classList.toggle('active', Number(element.dataset.clipId) === clipId);
+      });
+    }
+
+    function deleteClip(clipId, event) {
+      event.stopPropagation();
+      if (!confirm('Delete this clip?')) return;
+
+      storyboard.clips = storyboard.clips.filter((clip) => clip.id !== clipId);
+      persistStoryboard();
+      renderTimeline();
+
+      const previewVideo = document.getElementById('preview-video');
+      const previewSource = document.getElementById('preview-source');
+      const previewEmpty = document.getElementById('preview-empty');
+
+      if (storyboard.clips.length === 0) {
+        previewSource.src = '';
+        previewVideo.load();
+        previewVideo.classList.add('hidden');
+        previewEmpty.classList.remove('hidden');
+        return;
+      }
+
+      selectClip(storyboard.clips[storyboard.clips.length - 1].id);
+    }
+
+    function renderTimeline() {
+      const timelineClips = document.getElementById('timeline-clips');
+      if (!timelineClips) return;
+
+      timelineClips.innerHTML = '';
+      storyboard.clips.forEach((clip, index) => {
+        const clipElement = document.createElement('div');
+        clipElement.className = 'timeline-clip';
+        clipElement.dataset.clipId = clip.id;
+        clipElement.onclick = () => selectClip(clip.id);
+        clipElement.innerHTML = `
+          <div>Clip ${index + 1}</div>
+          <button class="timeline-clip-delete" onclick="deleteClip(${clip.id}, event)">&times;</button>
+        `;
+        timelineClips.appendChild(clipElement);
+      });
+    }
+
+    function exportStoryboard() {
+      const summary = storyboard.clips
+        .map((clip, index) => `Clip ${index + 1}: ${clip.prompt}`)
+        .join('\n\n');
+      const text = `Streamly Storyboard\n${'='.repeat(50)}\n\n${summary}`;
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = 'streamly-storyboard.txt';
+      anchor.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadStoryboard() {
+      if (storyboard.clips.length === 0) {
+        alert('No clips to download. Add some clips first.');
+        return;
+      }
+      exportStoryboard();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const promptInput = document.getElementById('prompt-input');
+      if (promptInput) {
+        autoSizePrompt();
+        promptInput.addEventListener('input', autoSizePrompt);
+      }
+      loadStoryboard();
+    });
+  </script>
+</body>
+</html>

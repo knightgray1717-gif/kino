@@ -1,0 +1,67 @@
+<!-- Pair: js/pages/upload.js — studio: drop a title + series slate -->
+
+<div class="content-wrapper upload-page">
+    <div class="page-masthead">
+        <p class="eyebrow">Upload</p>
+        <h1>Publish a drop or a series</h1>
+        <p>Upload a title, save a series to the slate, and it stays on the server.</p>
+    </div>
+
+    <div class="studio-grid">
+        <section class="gen-panel">
+            <h3>New drop</h3>
+            <div class="form-field">
+                <label for="project-type">Project type</label>
+                <select id="project-type">
+                    <option value="film">Video / Feature</option>
+                    <option value="clip">Clip</option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label>Upload file</label>
+                <div id="upload-drop" class="upload-drop" tabindex="0" role="button">
+                    <div class="upload-drop-icon"><i class="fas fa-cloud-arrow-up"></i></div>
+                    <div class="upload-drop-title">Drag & drop or click</div>
+                    <div class="muted upload-drop-copy">mp4, mov, webm, jpg, png</div>
+                </div>
+                <input id="upload-file" type="file" accept="video/*,image/*" class="hidden">
+                <div id="upload-preview" class="muted upload-preview-meta"></div>
+            </div>
+            <div class="form-field">
+                <label for="upload-title">Title</label>
+                <input id="upload-title" type="text" placeholder="Give it a name">
+            </div>
+            <div class="form-field">
+                <label for="upload-desc">Description</label>
+                <textarea id="upload-desc" placeholder="Mood, motion, framing..."></textarea>
+            </div>
+            <div class="action-row">
+                <button id="publish-upload" class="header-btn signin-btn" type="button"><i class="fas fa-cloud-arrow-up"></i> Publish to Kino</button>
+            </div>
+            <p class="muted upload-bot-note">Kino bot scans every drop before it goes live — explicit content and junk get blocked; kissing / romance is allowed. Possible copyright or duplicate matches are held for review.</p>
+            <div id="upload-moderation" class="upload-moderation hidden" aria-live="polite"></div>
+        </section>
+
+        <section class="gen-panel">
+            <h3>Series</h3>
+            <div class="form-field"><label>Series title</label><input id="series-title" type="text" placeholder="Enter series name"></div>
+            <div class="form-row">
+                <div class="form-field"><label>Season</label><input id="season-number" type="number" min="1" value="1"></div>
+                <div class="form-field"><label>Episodes</label><input id="episode-count" type="number" min="1" value="8"></div>
+            </div>
+            <div class="form-field"><label>Description</label><textarea id="series-description" placeholder="World, characters, arc..."></textarea></div>
+            <div class="form-row">
+                <div class="form-field"><label>Company</label><input id="series-company" type="text"></div>
+                <div class="form-field"><label>Director</label><input id="series-director" type="text"></div>
+            </div>
+            <div class="action-row">
+                <button class="header-btn signin-btn" id="save-series" type="button">Save series</button>
+            </div>
+        </section>
+    </div>
+
+    <section class="gen-panel studio-slate">
+        <h3>On the slate</h3>
+        <div class="schedule-list" data-slot="schedule"></div>
+    </section>
+</div>
